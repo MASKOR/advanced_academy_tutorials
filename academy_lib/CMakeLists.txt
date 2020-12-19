@@ -60,6 +60,7 @@ if(BUILD_TESTING)
   # Include linting and gtest
   find_package(ament_cmake_gtest REQUIRED)
   find_package(ament_lint_auto REQUIRED)
+  find_package(ament_cmake_lint_cmake REQUIRED)
   ament_lint_auto_find_test_dependencies()
   # Add a gtest named ${PROJECT_NAME}_my_test
   ament_add_gtest(${PROJECT_NAME}_test_colors test/test_colors.cpp)
