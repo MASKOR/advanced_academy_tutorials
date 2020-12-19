@@ -33,11 +33,12 @@ target_include_directories(${PROJECT_NAME}_colors
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
   )
+
 ament_target_dependencies(${PROJECT_NAME}_colors std_msgs OpenCV)
+#ament_export_interfaces(export_${PROJECT_NAME}_colors HAS_LIBRARY_TARGET)
+#ament_export_dependencies(OpenCV)
 
 ###bestpractices install rules
-
-
 install(
   DIRECTORY include/
   DESTINATION include
@@ -56,14 +57,16 @@ ament_export_include_directories(include)
 ament_export_libraries(${PROJECT_NAME}_colors)
 
 if(BUILD_TESTING)
+  # Include linting and gtest
+  find_package(ament_cmake_gtest REQUIRED)
   find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # uncomment the line when a copyright and license is not present in all source files
-  #set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # uncomment the line when this package is not in a git repo
-  #set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
+  # Add a gtest named ${PROJECT_NAME}_my_test
+  ament_add_gtest(${PROJECT_NAME}_test_colors test/test_colors.cpp)
+
+  if(TARGET ${PROJECT_NAME}_test_colors)
+    target_link_libraries(${PROJECT_NAME}_test_colors ${PROJECT_NAME}_colors)
+endif()
 endif()
 
 ament_package()

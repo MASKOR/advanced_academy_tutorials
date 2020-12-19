@@ -29,7 +29,8 @@ ament_target_dependencies(${PROJECT_NAME}_talker rclcpp std_msgs academy_lib)
 ###bestpractices install executable
 install(TARGETS
   ${PROJECT_NAME}_talker
-  DESTINATION lib/${PROJECT_NAME})
+  DESTINATION lib/${PROJECT_NAME}
+  )
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
